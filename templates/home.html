@@ -1,0 +1,49 @@
+
+<!-- WHILE WRITING NINJA CODE SPACING matters a lot -->
+
+{% extends "base.html" %}    <!--making base.html parent file to this home file -->
+
+{% block content %}     <!-- Wrapping unique code of home.html into block content -->
+
+       {% for post in posts %}
+	  <article class="media content-section">
+	  <img class="rounded-circle article-img" src="{{ post.author.profile.image.url }}">
+	  <div class="media-body">
+	    <div class="article-metadata">
+	      <a class="mr-2" href="{% url 'user-posts' post.author.username %}">{{ post.author }}</a>
+	      <small class="text-muted">{{ post.date_posted|date:"F,d Y" }}</small>
+	    </div>
+	    <h2><a class="article-title" href="{% url 'post_detail' post.id %}">{{ post.title }}</a></h2>
+	    <p class="article-content">{{ post.content }}</p>
+	  </div>
+	</article>   <!--Indentation Necessary-->
+    {% endfor %}
+    <!--Pagination Logic Below -->
+
+<div class=" ml-10 ">   <!---mychoi to make all buttons in center challenge yourself to do so->
+	{% if is_paginated %}
+		{% if page_obj.has_previous %}  <!--  check If current Page has previous pages then do next -->
+			<a class="btn btn-outline-info mb-4 " href="?page=1">First</a>
+			<a class="btn btn-outline-info mb-4 " href="?page={{ page_obj.previous_page_number }}">Previous</a>
+			{% for num in page_obj.paginator.page_range %}   <!-- Logic to print current page n surrounding page numbers to that-->
+				{% if page_obj.number == num %}
+					<a class="btn btn-info mb-4 " href="?page={{ num }}">{{ num }}</a> <!--shows Current Page number-->
+				{% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+					<a class="btn btn-outline-info mb-4 " href="?page={{ num }}">{{ num }}</a> <!--shows 3 pages surrounded around Current Page number-->
+				{% endif %}
+			{% endfor %}
+
+		{% endif %}
+		{% if page_obj.has_next %}  <!--  check If current Page has Next pages then do next -->
+			<a class="btn btn-outline-info mb-4 " href="?page={{ page_obj.next_page_number }}">Next</a>     <!--next_page_number give you no. of next page-->
+			<a class="btn btn-outline-info mb-4 " href="?page={{ page_obj.paginator.num_pages }}">Last</a>   <!--Paginator.num_pages  gives to total page-->
+		{% endif %}
+
+	{% endif %}
+
+</div>
+
+
+{% endblock content %}
+  
+   

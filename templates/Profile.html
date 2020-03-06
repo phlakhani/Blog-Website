@@ -1,0 +1,30 @@
+{% extends 'base.html' %}    <!--making base.html parent file to this about file -->
+{% load crispy_forms_tags %}
+
+{% block content %}     <!-- Wrapping unique code of about.html into block content -->
+	<div class="content-section">
+		<legend class="border-bottom mb-4">Current Profile:</legend>
+  <div class="media">
+    <img class="rounded-circle account-img" src="{{ user.profile.image.url }}">
+    <div class="media-body">
+      <h2 class="account-heading">{{ user.username }}</h2>
+      <p class="text-secondary">{{ user.email }}</p>
+      <!--<p class="text-secondary">City: {{ user.profile.city }}</p> --> <!--Will Implement Later -->
+      <!--<p class="text-secondary">City: {{ user.profile.city }}</p> -->
+    </div>
+  </div>
+  <!-- FORM HERE -->
+  <form method="POST" enctype="multipart/form-data">
+			{% csrf_token %}
+			<fieldset class="form-group">
+				<legend class="border-bottom mb-4">Update Profile:</legend>
+
+				{{ u_form|crispy }}   <!--as_p will render form as paragraph-->
+                {{ p_form|crispy }}
+			</fieldset>
+			<div class="form-group">
+				<button class="btn btn-outline-info" type="submit">Update Profile</button>
+				</div>
+		</form>
+</div>
+{% endblock content %}

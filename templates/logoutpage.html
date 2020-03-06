@@ -1,0 +1,13 @@
+
+{% extends 'base.html' %}    <!--making base.html parent file to this about file -->
+
+
+{% block content %}     <!-- Wrapping unique code of about.html into block content -->
+	
+	<h1 class="text-secondary">You've been Logged Out!!!</h1>
+		<div class="border-top pt-3">
+               <a class="ml-2 border p-1 bg-success text-white" href="{% url 'loginpage' %}">Log In again!</a>   
+		</div>
+	
+
+{% endblock content %}
