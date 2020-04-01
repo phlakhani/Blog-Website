@@ -6,6 +6,13 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import User
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView    # for Class based Views
 from .models import *
+from rest_framework.views import APIView
+from rest_framework.response import Response   ## related to response code like 200 for success events
+from rest_framework import status
+from .serializers import PostSerializer
+
+
+
 
 # by views we can render webpage by two way 1. function based view 2. class based view
 # first we used function based view but class based view offered very good functionality we later use that
@@ -86,3 +93,16 @@ class PostDeleteview(UserPassesTestMixin, LoginRequiredMixin, DeleteView):
             return True
         else:
             return False
+
+## below class is for getting API
+
+class RenderAllPost(APIView):    #We make two func get n post bcoz API has two such method
+
+    def get(self, request):
+        allpost = Post.objects.all()     # allpost variable will store all objects of Post class
+        Json = PostSerializer(allpost, many=True)     # All objects now will be converted into Json format
+                                                      # Many=True indicates function PostSerializer returns multiple objects
+        return Response(Json.data)     # it will return data in Json format
+
+    def post(self):   # post is used to submit datas to api
+        pass
