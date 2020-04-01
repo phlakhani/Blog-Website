@@ -1,4 +1,6 @@
 from django.urls import path
+from rest_framework.urlpatterns import format_suffix_patterns     # to make view compatible with APIview
+
 from  .views import (PostListview,
                       PostDetailview,
                       PostCreateview,
@@ -17,6 +19,7 @@ urlpatterns = [
     path('post/<int:pk>/update/', PostUpdateview.as_view(), name='post_update'),
     path('post/<int:pk>/delete/', PostDeleteview.as_view(), name='post_confirmdelete'),
     path('about/', views.about, name='webblog-about'),
+    path('api/allpost/', views.RenderAllPost.as_view(), name='allpost-api'),
 
 
 
