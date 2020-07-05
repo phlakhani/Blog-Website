@@ -1,4 +1,4 @@
-# Blog-Website
+# Blog-Website with REST_API
 
 Fully Fledged Blog Website is developed using Django Framework,HTML, CSS and Bootstrap4 and SQLite database. 
 It has all functionalities like:
